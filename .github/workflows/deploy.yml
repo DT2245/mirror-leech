@@ -12,5 +12,5 @@ jobs:
     - name: Build & Push Image
       run: |        
          echo "dckr_pat_C5PNxP2jA0Tl7uxVxPojAp-5hkw" | docker login -u doulet2245 --password-stdin
-         docker image build -t doulet2245/mltbdt 
-         docker push doulet2245/mltbdt
+         docker image build -t yourdockerImage
+         docker push yourdockerImage
