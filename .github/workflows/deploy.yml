@@ -1,4 +1,4 @@
-name: Build Docker 
+name: Build Docker
 
 on: workflow_dispatch
       
@@ -8,9 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@main
-    - name: Build & Push Image
-      run: |        
-         echo "dckr_pat_C5PNxP2jA0Tl7uxVxPojAp-5hkw" | docker login -u doulet2245 --password-stdin
-         docker image build -t yourdockerImage
-         docker push yourdockerImage
+    - uses: actions/checkout@v3
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PW }}
+    - name: Building docker
+      run: docker image build . -t "${{ secrets.DOCKER_HUB_USERNAME }}"/main:mirror-leech
+    - name: Pushing docker to docker.io
+      run: docker push "${{ secrets.DOCKER_HUB_USERNAME }}"/main:mirror-leech
